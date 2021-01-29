@@ -4,11 +4,12 @@ This project provides PowerShell to create automatic tasks to administer Microso
 
 ## Prerequisites
 
-You need to install some PowerShell modules. To do that, open en PowerShell terminal as Administrator and execute :
+You need to install some PowerShell modules and allow script execution. To do that, open en PowerShell terminal as Administrator and execute :
 
 Install-Module MSOnline
 Install-Module ExchangeOnlineManagement
 
+Set-ExecutionPolicy RemoteSigned 
 
 ## deleteMailbox
 
@@ -16,4 +17,6 @@ Removes an ExchangeOnline mailbox but keeps the Azure AD account. Please conside
 
 Usage : powershell.exe .\deleteMaibox.ps1 user@yourdomain.com
 
+## TIPS
 
+When you execute a comand such as deleteMailbox, if you encounter an authentication error (Bad username or password), try to execute it with Administrator roles.
