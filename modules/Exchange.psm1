@@ -1,4 +1,4 @@
-function Enable-Exchange {
+function Enable-Exchange-License {
     param($Account)
     $User = Get-MSOLUser -UserPrincipalName $Account
     
@@ -12,7 +12,7 @@ function Enable-Exchange {
 }
 
 
-function Disable-Exchange {
+function Disable-Exchange-License {
     param($Account)
     $User = Get-MSOLUser -UserPrincipalName $Account
     
@@ -25,3 +25,25 @@ function Disable-Exchange {
     }
 }
 
+
+function EnableForwardToRenater {
+    param($Account)
+    
+    $Mailbox = Get-Mailbox -Identity $Account
+
+    if ($null -eq $Mailbox) {
+        Write-Output "Exchange Online mailbox not found for $Account"
+        return
+    }
+
+    $UserPrincipalName = $Mailbox.UserPrincipalName
+    $UserPrincipalName = $UserPrincipalName.ToLower()
+    if ($UserPrincipalName -notcontains "@ensea.fr") {
+        Write-Output "Cannot set forward on an Exchange mailbox for $Account because the user principal name on this account doesn't contain @ensea.fr" 
+        return
+    }
+
+    $ForwardEmailAlias = $UserPrincipalName.Replace("@ensea.fr", "+onrenater@ensea.fr")
+    Set-Mailbox -Identity $Account -ForwardingSmtpAddress $ForwardEmailAlias -DeliverToMailboxAndForward $false
+    Write-Output "Exchange Online mailbox for $Account updated with automatic forward to Renater"
+}

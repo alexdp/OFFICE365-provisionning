@@ -12,10 +12,8 @@ Import-Module .\modules\Exchange.psm1
 
 $Account = "violetuml@ensea.fr"
 
-Connect-AzureAD-NoPrompt
 Connect-ExchangeOnline-NoPrompt
-Disable-Exchange -Account $Account
-Set-User $Account -PermanentlyClearPreviousMailboxInfo -Confirm:$false
-
+EnableForwardToRenater -Account $Account
+Disconnect-ExchangeOnline
 
 ## New-Msoluser -userPrincipalName $args[2] -displayname $args[3] -firstname $args[4] -lastname $args[5] -password $args[6] -usagelocation "us" -LicenseAssignment $args[7]
