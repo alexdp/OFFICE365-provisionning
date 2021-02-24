@@ -1,5 +1,5 @@
-$username = "yyyyyyy"
-$password= convertto-securestring "xxxxxxxx" -asplaintext -force
+$username = "xxxx"
+$password= convertto-securestring "yyyy" -asplaintext -force
 
 function  Connect-AzureAD-NoPrompt {
     $mycred = new-object -typename System.Management.Automation.PSCredential -argumentlist $username,$password

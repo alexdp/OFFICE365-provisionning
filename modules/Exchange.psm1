@@ -38,7 +38,7 @@ function EnableForwardToRenater {
 
     $UserPrincipalName = $Mailbox.UserPrincipalName
     $UserPrincipalName = $UserPrincipalName.ToLower()
-    if ($UserPrincipalName -notcontains "@ensea.fr") {
+    if (-not $UserPrincipalName.EndsWith("@ensea.fr")) {
         Write-Output "Cannot set forward on an Exchange mailbox for $Account because the user principal name on this account doesn't contain @ensea.fr" 
         return
     }
